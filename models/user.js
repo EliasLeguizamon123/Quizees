@@ -7,11 +7,12 @@ const userSchema = new Schema({
     name: String,
     userName: {type: 'string', required: true},
     password: {type: 'string', required: true},
-    creationDate: String,
+    creationDate: Date,
     about: String,
     picture: String,
     email: {type: 'string', required: true},
     puntuation: Number,
+    isEnabledToScore: Boolean
 });
 
 userSchema.method.encryptPassword = (password) => {
