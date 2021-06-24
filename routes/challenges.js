@@ -28,4 +28,15 @@ router.patch('/update/:id', async (req, res) => {
  res.send(updatedChallenge);
 });
 
+//* Find Challenge by ID
+router.get('/get/:id', async (req, res) =>{
+    const findChallengeByID = await challenge.findById({_id: req.params.id})
+    res.json(findChallengeByID);
+});
+
+//*Try of filters
+router.get('/get/:tag', async (req, res) =>{
+    const findChallengeByTag = await challenge.find({_tags: req.params.id})
+    res.json(findChallengeByTag);
+});
 module.exports = router;

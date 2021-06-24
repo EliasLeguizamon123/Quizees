@@ -1,18 +1,23 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcypt = require('bcrypt-nodejs')
+const challenge = require('./challenge');
 
 //TODO Revisar si el model user esta correctamente creado
 const userSchema = new Schema({
-    name: String,
-    userName: {type: 'string', required: true},
-    password: {type: 'string', required: true},
-    creationDate: Date,
-    about: String,
-    picture: String,
-    email: {type: 'string', required: true},
+    name: {type: String, required: true},
+    userName: {type: String, required: true, unique: true},
+    password: {type: String, required: true},
+    creationDate: {type: Date, required: true, default: Date.now},
+    bio: {type: String},
+    avatar: {type: String, required: true},
+    email: {type: String, required: true, unique: true},
     puntuation: Number,
-    isEnabledToScore: Boolean
+    isEnabledToScore: {type: Boolean, required: true, default: false},
+    socialMedia: {type: Array, required: false, default: []},
+    challenges: [{type: mongoose.Schema.Types.ObjectId, ref: 'challenge'}],
+    solutions: [{type: mongoose.Schema.Types.ObjectId, ref: 'challenge'}],
+    location: {type: String}
 });
 
 userSchema.method.encryptPassword = (password) => {
